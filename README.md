@@ -207,19 +207,6 @@ flowchart LR
 
 ## Engineering Philosophy
 
-```mermaid
-flowchart LR
-    P[Problem] --> R[Research]
-    R --> A[Architecture]
-    A --> D[Design]
-    D --> B[Build]
-    B --> T[Test]
-    T --> M[Measure]
-    M --> S[Ship]
-    S --> I[Improve]
-    I --> M
-```
-
 ### Principles
 
 - **Simplicity over unnecessary complexity**  
