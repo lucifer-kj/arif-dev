@@ -1,0 +1,318 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Arif Portfolio Design System (Replicated from Kolk)
+ * Swiss-influenced: Warm Linen Ivory surfaces, Deep Espresso Obsidian text,
+ * Rich Burnt Terracotta / Signal Vermilion accent. All colors in oklch.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 0.5rem);
+  --radius-md: calc(var(--radius) - 0.25rem);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 0.25rem);
+
+  --font-sans: var(--font-body);
+  --font-display: var(--font-heading);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --shadow-card: 0 1px 2px oklch(0.2 0 0 / 6%);
+  --shadow-lift: 0 8px 24px -12px oklch(0.2 0 0 / 18%);
+  --shadow-paper: 0 1px 3px oklch(0.2 0.006 50 / 4%), 0 10px 24px -8px oklch(0.2 0.006 50 / 6%);
+  --shadow-paper-lift:
+    0 2px 6px oklch(0.2 0.006 50 / 5%), 0 20px 40px -12px oklch(0.2 0.006 50 / 12%);
+}
+
+:root {
+  --radius: 1.25rem;
+  --font-heading: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Warm Linen Ivory Canvas (#FAF8F5) */
+  --background: oklch(0.985 0.006 85);
+  /* Deep Espresso Obsidian Typography (#1C1917) */
+  --foreground: oklch(0.2 0.006 50);
+  /* Soft Warm Surface (#F4F1EB) */
+  --surface: oklch(0.965 0.008 85);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.006 50);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.006 50);
+  --primary: oklch(0.2 0.006 50);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.955 0.008 85);
+  --secondary-foreground: oklch(0.2 0.006 50);
+  --muted: oklch(0.955 0.008 85);
+  /* Warm Umber Charcoal (#78716C) */
+  --muted-foreground: oklch(0.5 0.012 60);
+  /* Rich Burnt Terracotta (#C05621) */
+  --accent: oklch(0.58 0.16 42);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(1 0 0);
+  /* Soft warm hairline border */
+  --border: oklch(0.92 0.006 85);
+  --input: oklch(0.92 0.006 85);
+  --ring: oklch(0.58 0.16 42);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  /* Custom Scrollbar: Sleek minimal scrollbar on desktop, hidden on mobile/touch */
+  @media (max-width: 768px) {
+    ::-webkit-scrollbar {
+      display: none;
+      width: 0px;
+      height: 0px;
+    }
+    html,
+    body,
+    * {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  }
+
+  @media (min-width: 769px) {
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--color-background);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: oklch(0.86 0.008 85);
+      border-radius: 9999px;
+      border: 2px solid var(--color-background);
+      transition: background-color 200ms ease;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-accent);
+    }
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: oklch(0.86 0.008 85) var(--color-background);
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+}
+
+@utility label-xs {
+  font-size: 0.6875rem;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@utility text-fluid-hero {
+  font-size: clamp(2.25rem, 1.7rem + 2.5vw, 4.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+@utility text-fluid-heading {
+  font-size: clamp(1.75rem, 1.35rem + 1.8vw, 2.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+
+@utility text-fluid-subheading {
+  font-size: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+@utility text-fluid-body {
+  font-size: clamp(0.9375rem, 0.875rem + 0.25vw, 1.0625rem);
+  line-height: 1.6;
+}
+
+@utility hairline-grid {
+  background-image:
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  background-size: 96px 96px;
+}
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@utility reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
+@utility stagger-grid {
+  & > * {
+    animation: item-rise 500ms both cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  & > *:nth-child(2) {
+    animation-delay: 80ms;
+  }
+
+  & > *:nth-child(3) {
+    animation-delay: 160ms;
+  }
+
+  & > *:nth-child(4) {
+    animation-delay: 240ms;
+  }
+}
+
+@utility trade-signal {
+  position: relative;
+  width: min(20rem, 28vw);
+  aspect-ratio: 1;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background-image:
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  background-size: 25% 25%;
+  overflow: hidden;
+  animation: signal-enter 700ms 120ms both ease-out;
+}
+
+@utility trade-signal-orbit {
+  position: absolute;
+  inset: 18%;
+  border: 1px solid var(--color-accent);
+  border-radius: 999px;
+}
+
+@utility trade-signal-axis {
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  width: 1px;
+  height: 84%;
+  background: var(--color-accent);
+  transform: rotate(42deg);
+  transform-origin: center;
+}
+
+@utility trade-signal-node {
+  position: absolute;
+  width: 0.75rem;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 6px var(--color-background);
+  animation: node-pulse 3.6s infinite ease-in-out;
+}
+
+@utility trade-signal-node-a {
+  left: 23%;
+  top: 62%;
+}
+
+@utility trade-signal-node-b {
+  right: 21%;
+  top: 29%;
+  animation-delay: 700ms;
+}
+
+@utility trade-signal-node-c {
+  right: 26%;
+  bottom: 17%;
+  animation-delay: 1.4s;
+}
+
+@keyframes item-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes signal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) rotate(-2deg);
+  }
+}
+
+@keyframes node-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+}
